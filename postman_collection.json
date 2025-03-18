@@ -57,6 +57,122 @@
           }
         }
       ]
+    },
+    {
+      "name": "Categorías",
+      "item": [
+        {
+          "name": "Crear Categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categories"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Casa de Playa\",\n    \"description\": \"Propiedades ubicadas en zonas costeras\"\n}"
+            },
+            "description": "Crea una nueva categoría de propiedades"
+          }
+        },
+        {
+          "name": "Obtener Todas las Categorías",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3000/categories",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categories"]
+            },
+            "description": "Obtiene la lista de todas las categorías"
+          }
+        },
+        {
+          "name": "Obtener Categoría por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:3000/categories/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la categoría"
+                }
+              ]
+            },
+            "description": "Obtiene una categoría específica por su ID"
+          }
+        },
+        {
+          "name": "Actualizar Categoría",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/categories/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la categoría a actualizar"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Casa de Playa Actualizada\",\n    \"description\": \"Propiedades ubicadas en zonas costeras - Actualizado\"\n}"
+            },
+            "description": "Actualiza una categoría existente"
+          }
+        },
+        {
+          "name": "Eliminar Categoría",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:3000/categories/:id",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la categoría a eliminar"
+                }
+              ]
+            },
+            "description": "Elimina una categoría existente"
+          }
+        }
+      ]
     }
   ],
   "variable": [
