@@ -2,6 +2,8 @@
 
 ## Configuración
 
+### Sin Docker
+
 1. Instalar dependencias:
 
 ```bash
@@ -26,6 +28,32 @@ npx prisma migrate dev
 npm run start:dev
 ```
 
+### Con Docker
+
+1. Construir y ejecutar los contenedores:
+
+```bash
+docker-compose up --build
+```
+
+2. Para ejecutar en segundo plano:
+
+```bash
+docker-compose up -d
+```
+
+3. Para detener los contenedores:
+
+```bash
+docker-compose down
+```
+
+4. Para ver los logs:
+
+```bash
+docker-compose logs -f
+```
+
 ## Endpoints
 
 ### Autenticación
@@ -36,54 +64,3 @@ npm run start:dev
 - **Método**: `POST`
 - **Headers**:
   - `Content-Type: application/json`
-- **Body**:
-
-```json
-{
-  "email": "test@example.com",
-  "password": "test123",
-  "name": "Test User"
-}
-```
-
-- **Respuesta**:
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
-#### Login de Usuario
-
-- **URL**: `/auth/login`
-- **Método**: `POST`
-- **Headers**:
-  - `Content-Type: application/json`
-- **Body**:
-
-```json
-{
-  "email": "test@example.com",
-  "password": "test123"
-}
-```
-
-- **Respuesta**:
-
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
-## Colección de Postman
-
-Se incluye una colección de Postman (`postman_collection.json`) que puedes importar directamente en Postman para probar los endpoints.
-
-Para importar la colección:
-
-1. Abrir Postman
-2. Click en "Import"
-3. Arrastrar el archivo `postman_collection.json` o seleccionarlo desde el explorador de archivos
-4. La colección se importará con todos los endpoints configurados

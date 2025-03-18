@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/vacacional?schema=public
+      - JWT_SECRET=tu-secreto-super-seguro
+      - NODE_ENV=development
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - vacacional-network
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=vacacional
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - vacacional-network
+
+volumes:
+  postgres_data:
+
+networks:
+  vacacional-network:
+    driver: bridge
