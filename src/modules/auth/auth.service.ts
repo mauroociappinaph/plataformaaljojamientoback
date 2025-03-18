@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../../prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
+import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,35 +12,28 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const { email, password, name } = registerDto;
-
-    // Verificar si el usuario ya existe
     const existingUser = await this.prisma.user.findUnique({
-      where: { email },
+      where: { email: registerDto.email },
     });
 
     if (existingUser) {
       throw new ConflictException('El email ya está registrado');
     }
 
-    // Encriptar la contraseña
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(registerDto.password, 10);
 
-    // Crear el usuario
     const user = await this.prisma.user.create({
       data: {
-        email,
+        ...registerDto,
         password: hashedPassword,
-        name,
       },
     });
 
-    // Eliminar la contraseña del objeto de respuesta
-    const { password: _, ...result } = user;
+    const { password, ...result } = user;
     return result;
   }
 
-  async validateUser(email: string, password: string) {
+  async validateUser(email: string, password: string): Promise<any> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (user && await bcrypt.compare(password, user.password)) {
       const { password, ...result } = user;
