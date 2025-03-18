@@ -93,6 +93,39 @@ Los microservicios se comunican entre sí a través de:
 - Mensajería asíncrona (con RabbitMQ/Kafka)
 - gRPC para comunicaciones internas de alto rendimiento
 
+## Gestión de Bases de Datos con Prisma
+
+### Estrategia de Base de Datos
+
+Cada microservicio que requiere persistencia de datos utiliza su propia instancia de Prisma con:
+
+1. **Schema específico**: Cada servicio define su propio schema.prisma con solo los modelos relevantes
+2. **Base de datos dedicada o esquema separado**: Siguiendo el patrón Database-per-Service o Schema-per-Service
+3. **Migraciones independientes**: Cada servicio gestiona sus propias migraciones
+
+### Implementación de Prisma
+
+Los siguientes servicios implementan Prisma:
+
+- user-service (datos de usuarios)
+- property-service (propiedades y características)
+- booking-service (reservas y disponibilidad)
+- payment-service (transacciones y pagos)
+- notification-service (plantillas y registro de notificaciones)
+
+### Estructura dentro de cada servicio
+
+```
+[servicio]/
+├── prisma/
+│   ├── schema.prisma       # Definición del esquema específico
+│   ├── migrations/         # Migraciones para este servicio
+│   └── seed.ts             # Datos iniciales (si aplica)
+└── src/
+    ├── repositories/       # Capa de acceso a datos usando Prisma
+    └── ...
+```
+
 ## Despliegue
 
 Cada microservicio tiene su propio Dockerfile y puede ser desplegado individualmente.
