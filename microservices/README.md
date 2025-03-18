@@ -6,28 +6,17 @@ Este directorio contiene la implementación de la arquitectura de microservicios
 
 ```
 microservices/
-├── analytics-service/      # Analítica de datos y telemetría
 ├── api-gateway/           # Puerta de enlace API para enrutar solicitudes
 ├── auth-service/          # Autenticación y autorización de usuarios
-├── booking-service/       # Gestión de reservas
-├── config-service/        # Servicio de configuración centralizada
-├── discovery-service/     # Registro y descubrimiento de servicios
 ├── media-service/         # Gestión de archivos multimedia (imágenes, videos)
-├── messaging-service/     # Mensajería en tiempo real entre usuarios
+├── messaging-service/     # Mensajería en tiempo real entre usuarios (chat)
 ├── notification-service/  # Envío de notificaciones (email, SMS, push)
-├── payment-service/       # Procesamiento de pagos
-├── property-service/      # Gestión de propiedades/alojamientos
+├── payment-service/       # Procesamiento de pagos con Stripe
 ├── recommendation-service/# Recomendaciones personalizadas con IA
-├── search-service/        # Búsqueda avanzada de propiedades
-├── user-service/          # Gestión de perfiles y datos de usuario
 └── shared/                # Código compartido entre microservicios
 ```
 
 ## Servicios
-
-### Analytics Service
-
-Recopila y procesa datos de uso para alimentar el sistema de recomendación y generar informes de negocio.
 
 ### API Gateway
 
@@ -37,21 +26,9 @@ Actúa como punto de entrada único para todas las solicitudes de clientes, enru
 
 Maneja autenticación, autorización, registro de usuarios y gestión de tokens.
 
-### Booking Service
-
-Gestiona reservas, disponibilidad y calendario de propiedades.
-
-### Config Service
-
-Proporciona configuración centralizada para todos los microservicios.
-
-### Discovery Service
-
-Registro y descubrimiento dinámico de servicios.
-
 ### Media Service
 
-Gestiona el almacenamiento, procesamiento y entrega de imágenes y videos de propiedades.
+Gestiona el almacenamiento, procesamiento y entrega de imágenes y videos de propiedades usando servicios cloud.
 
 ### Messaging Service
 
@@ -59,27 +36,15 @@ Proporciona funcionalidades de chat en tiempo real entre usuarios y anfitriones 
 
 ### Notification Service
 
-Envía notificaciones a usuarios a través de diferentes canales (email, SMS, notificaciones push).
+Envía notificaciones a usuarios a través de diferentes canales (email, SMS, notificaciones push) utilizando Twilio.
 
 ### Payment Service
 
-Procesa pagos, reembolsos y gestiona transacciones.
-
-### Property Service
-
-Gestiona información de propiedades, búsqueda y filtrado.
+Procesa pagos, reembolsos y gestiona transacciones utilizando la API de Stripe.
 
 ### Recommendation Service
 
-Ofrece recomendaciones personalizadas utilizando algoritmos de IA.
-
-### Search Service
-
-Proporciona búsqueda avanzada con filtros complejos utilizando Elasticsearch.
-
-### User Service
-
-Gestiona perfiles de usuarios, preferencias y datos personales.
+Ofrece recomendaciones personalizadas utilizando algoritmos de IA (TensorFlow).
 
 ### Shared
 
@@ -107,9 +72,7 @@ Cada microservicio que requiere persistencia de datos utiliza su propia instanci
 
 Los siguientes servicios implementan Prisma:
 
-- user-service (datos de usuarios)
-- property-service (propiedades y características)
-- booking-service (reservas y disponibilidad)
+- auth-service (usuarios y autenticación)
 - payment-service (transacciones y pagos)
 - notification-service (plantillas y registro de notificaciones)
 
