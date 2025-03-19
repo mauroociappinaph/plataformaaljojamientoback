@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
@@ -10,6 +10,22 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
           url: process.env.DATABASE_URL,
         },
       },
+      // Configuración para reducir logs
+      log: [
+        {
+          emit: 'event',
+          level: 'error',
+        },
+        {
+          emit: 'event',
+          level: 'warn',
+        },
+      ],
+    });
+
+    // Opcional: Escuchar eventos de error para logging personalizado
+    this.$on('error' as never, (e: Prisma.LogEvent) => {
+      console.error('Prisma Error:', e);
     });
   }
 
