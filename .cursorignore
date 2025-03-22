@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+.pnpm/
+.npm/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+
+# Environment and secrets
+.env*
+!.env.example
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+.temp/
+
+# Debug files
+*.map
+debug/
+
+# Generated files
+generated/
+*.generated.*
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Prisma
+prisma/migrations/
+*.db
+*.sqlite
+*.sqlite3
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Test files
+__tests__/
+*.test.*
+*.spec.*
+
+# Type definition files
+*.d.ts

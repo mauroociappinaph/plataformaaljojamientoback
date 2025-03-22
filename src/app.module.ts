@@ -4,6 +4,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { CategoryModule } from './modules/category/category.module';
 import { EmailModule } from './modules/email/email.module';
+import { PropertyModule } from './modules/property/property.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -16,6 +17,7 @@ import { AppService } from './app.service';
     AuthModule,
     CategoryModule,
     EmailModule,
+    PropertyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
