@@ -8,20 +8,23 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(uuid())
-  email         String         @unique
-  password      String
-  name          String
-  role          Role           @default(USER)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  avatar        String?
-  phone         String?
-  bookings      Booking[]
-  messages      Message[]
-  notifications Notification[]
-  properties    Property[]
-  reviews       Review[]
+  id                   String         @id @default(uuid())
+  email                String         @unique
+  password             String
+  name                 String
+  role                 Role           @default(USER)
+  emailVerified        Boolean        @default(false)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  avatar               String?
+  phone                String?
+  bookings             Booking[]
+  messages             Message[]
+  notifications        Notification[]
+  properties           Property[]
+  reviews              Review[]
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
 }
 
 model Property {

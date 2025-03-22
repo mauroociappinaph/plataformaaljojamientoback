@@ -20,6 +20,8 @@ describe('AuthController', () => {
             register: jest.fn(),
             validateUser: jest.fn(),
             login: jest.fn(),
+            forgotPassword: jest.fn(),
+            resetPassword: jest.fn(),
           },
         },
       ],
@@ -47,6 +49,9 @@ describe('AuthController', () => {
         updatedAt: new Date(),
         avatar: null,
         phone: null,
+        passwordResetToken: null,
+        passwordResetExpires: null,
+        emailVerified: false,
       };
 
       jest.spyOn(authService, 'register').mockResolvedValue(expectedResult);
@@ -73,6 +78,9 @@ describe('AuthController', () => {
         email: loginDto.email,
         name: 'Test User',
         role: Role.USER,
+        passwordResetToken: null,
+        passwordResetExpires: null,
+        emailVerified: false,
       };
 
       const expectedToken = {

@@ -11,14 +11,18 @@ async function bootstrap() {
     logger: ['error', 'warn'], // Solo mostrar errores y advertencias
   });
 
+  // Configuración de pipes globales
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,
   }));
 
+  // Configuración del prefijo global
+  app.setGlobalPrefix('api');
+
   // Configuración detallada de CORS
   app.enableCors({
-    origin: ['http://localhost:3001', 'http://localhost:3000', '*'],
+    origin: true, // Permitir todas las origenes en desarrollo
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
