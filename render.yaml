@@ -25,6 +25,8 @@ services:
         value: https://plataformaaljojamientofront-59q3bkwx1.vercel.app/
       - key: CORS_ORIGIN
         value: https://plataformaaljojamientofront-59q3bkwx1.vercel.app/
+      - key: NODE_VERSION
+        value: "18.x"
 
 # Base de datos PostgreSQL
 databases:
