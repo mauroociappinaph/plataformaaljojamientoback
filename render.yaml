@@ -4,7 +4,7 @@ services:
     name: vacacional-api
     runtime: node
     plan: free
-    buildCommand: npm install --legacy-peer-deps --include=dev && npx prisma generate && npm run build -- --skipLibCheck
+    buildCommand: npm install --legacy-peer-deps && npx prisma generate && npm run build -- --noEmitOnError
     startCommand: npx prisma generate && npx prisma migrate deploy && npm run start:prod
     repo: https://github.com/mauroociappinaph/plataformaaljojamientoback
     branch: main
