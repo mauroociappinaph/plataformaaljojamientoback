@@ -5,6 +5,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
 import { CategoryModule } from './modules/category/category.module';
 import { EmailModule } from './modules/email/email.module';
 import { PropertyModule } from './modules/property/property.module';
+import { BookingModule } from './modules/booking/booking.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -18,6 +19,7 @@ import { AppService } from './app.service';
     CategoryModule,
     EmailModule,
     PropertyModule,
+    BookingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

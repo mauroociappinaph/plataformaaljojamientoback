@@ -1,0 +1,696 @@
+{
+  "info": {
+    "name": "Vacacional API (Completa)",
+    "description": "API para la plataforma de alojamiento vacacional - Todos los endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Autenticación",
+      "item": [
+        {
+          "name": "Registro de Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"test123\",\n    \"name\": \"Test User\"\n}"
+            },
+            "description": "Registra un nuevo usuario en el sistema"
+          }
+        },
+        {
+          "name": "Login de Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"test123\"\n}"
+            },
+            "description": "Inicia sesión de un usuario y obtiene un token JWT"
+          }
+        },
+        {
+          "name": "Recuperar Contraseña",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/forgot-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "forgot-password"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\"\n}"
+            },
+            "description": "Solicita un token para restablecer la contraseña"
+          }
+        },
+        {
+          "name": "Restablecer Contraseña",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "reset-password"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"token-recibido-por-email\",\n    \"password\": \"nueva-contraseña\"\n}"
+            },
+            "description": "Restablece la contraseña usando el token recibido"
+          }
+        },
+        {
+          "name": "Verificar Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/verify-email",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "verify-email"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"token-recibido-por-email\"\n}"
+            },
+            "description": "Verifica el email usando el token recibido"
+          }
+        },
+        {
+          "name": "Reenviar Verificación",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/resend-verification",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "resend-verification"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\"\n}"
+            },
+            "description": "Reenvía el correo de verificación"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categorías",
+      "item": [
+        {
+          "name": "Crear Categoría",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Casa de Playa\",\n    \"description\": \"Propiedades ubicadas en zonas costeras\"\n}"
+            },
+            "description": "Crea una nueva categoría de propiedades"
+          }
+        },
+        {
+          "name": "Obtener Todas las Categorías",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories"]
+            },
+            "description": "Obtiene la lista de todas las categorías"
+          }
+        },
+        {
+          "name": "Obtener Categoría por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/categories/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la categoría"
+                }
+              ]
+            },
+            "description": "Obtiene una categoría específica por su ID"
+          }
+        },
+        {
+          "name": "Actualizar Categoría",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/categories/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la categoría a actualizar"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Casa de Playa Actualizada\",\n    \"description\": \"Propiedades ubicadas en zonas costeras - Actualizado\"\n}"
+            },
+            "description": "Actualiza una categoría existente"
+          }
+        },
+        {
+          "name": "Eliminar Categoría",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/categories/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la categoría a eliminar"
+                }
+              ]
+            },
+            "description": "Elimina una categoría existente"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Propiedades",
+      "item": [
+        {
+          "name": "Crear Propiedad",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/properties",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Casa en la playa\",\n    \"description\": \"Hermosa casa con vista al mar\",\n    \"price\": 100,\n    \"location\": \"Maldonado, Uruguay\",\n    \"amenities\": [\"WiFi\", \"Piscina\", \"Aire acondicionado\"],\n    \"images\": [\"image1.jpg\", \"image2.jpg\"],\n    \"address\": \"Calle 123\",\n    \"bathrooms\": 2,\n    \"bedrooms\": 3,\n    \"categoryId\": \"id-de-categoria\",\n    \"city\": \"Punta del Este\",\n    \"country\": \"Uruguay\",\n    \"maxGuests\": 6\n}"
+            },
+            "description": "Crea una nueva propiedad (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Obtener Todas las Propiedades",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/properties",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties"],
+              "query": [
+                {
+                  "key": "location",
+                  "value": "Uruguay",
+                  "disabled": true
+                },
+                {
+                  "key": "minPrice",
+                  "value": "50",
+                  "disabled": true
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "200",
+                  "disabled": true
+                },
+                {
+                  "key": "categoryId",
+                  "value": "id-de-categoria",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Obtiene todas las propiedades con filtros opcionales"
+          }
+        },
+        {
+          "name": "Obtener Propiedad por ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/properties/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la propiedad"
+                }
+              ]
+            },
+            "description": "Obtiene detalles de una propiedad específica"
+          }
+        },
+        {
+          "name": "Obtener Mis Propiedades",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/properties/user/my-properties",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties", "user", "my-properties"]
+            },
+            "description": "Obtiene las propiedades del usuario autenticado"
+          }
+        },
+        {
+          "name": "Actualizar Propiedad",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/properties/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la propiedad a actualizar"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Casa en la playa actualizada\",\n    \"price\": 120\n}"
+            },
+            "description": "Actualiza una propiedad existente (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Eliminar Propiedad",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/properties/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["properties", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la propiedad a eliminar"
+                }
+              ]
+            },
+            "description": "Elimina una propiedad existente (requiere autenticación)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservas",
+      "item": [
+        {
+          "name": "Crear Reserva",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"propertyId\": \"id-de-propiedad\",\n    \"startDate\": \"2023-12-01T00:00:00.000Z\",\n    \"endDate\": \"2023-12-07T00:00:00.000Z\",\n    \"totalPrice\": 700\n}"
+            },
+            "description": "Crea una nueva reserva para una propiedad (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Obtener Todas las Reservas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings"],
+              "query": [
+                {
+                  "key": "propertyId",
+                  "value": "id-de-propiedad",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "PENDING",
+                  "disabled": true
+                },
+                {
+                  "key": "paymentStatus",
+                  "value": "PENDING",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Obtiene todas las reservas con filtros opcionales (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Obtener Mis Reservas",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/user",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", "user"]
+            },
+            "description": "Obtiene las reservas del usuario autenticado"
+          }
+        },
+        {
+          "name": "Obtener Reservas por Propiedad",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/property/:propertyId",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", "property", ":propertyId"],
+              "variable": [
+                {
+                  "key": "propertyId",
+                  "value": "",
+                  "description": "ID de la propiedad"
+                }
+              ]
+            },
+            "description": "Obtiene las reservas de una propiedad específica (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Obtener Detalle de Reserva",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la reserva"
+                }
+              ]
+            },
+            "description": "Obtiene detalles de una reserva específica (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Actualizar Reserva",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la reserva a actualizar"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"startDate\": \"2023-12-02T00:00:00.000Z\",\n    \"endDate\": \"2023-12-08T00:00:00.000Z\",\n    \"totalPrice\": 720\n}"
+            },
+            "description": "Actualiza una reserva existente (requiere autenticación)"
+          }
+        },
+        {
+          "name": "Actualizar Estado de Reserva",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", ":id", "status"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la reserva"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"CONFIRMED\"\n}"
+            },
+            "description": "Actualiza el estado de una reserva (PENDING, CONFIRMED, CANCELLED, COMPLETED)"
+          }
+        },
+        {
+          "name": "Actualizar Estado de Pago",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id/payment",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", ":id", "payment"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la reserva"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"paymentStatus\": \"PAID\"\n}"
+            },
+            "description": "Actualiza el estado de pago de una reserva (PENDING, PAID, REFUNDED, FAILED)"
+          }
+        },
+        {
+          "name": "Eliminar Reserva",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bookings/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["bookings", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID de la reserva a eliminar"
+                }
+              ]
+            },
+            "description": "Elimina una reserva existente (requiere autenticación)"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "tu-token-jwt-aqui",
+      "type": "string"
+    }
+  ]
+}
