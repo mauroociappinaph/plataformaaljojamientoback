@@ -2,34 +2,18 @@ import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient, Prisma } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
 
+// Crear una instancia básica de PrismaClient para evitar problemas de serialización
+const prismaOptions: Prisma.PrismaClientOptions = {
+  log: [
+    { emit: 'event', level: 'error' },
+    { emit: 'event', level: 'warn' },
+  ],
+};
+
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
-  constructor(config: ConfigService) {
-    const url = config.get<string>('DATABASE_URL');
-
-    super({
-      datasources: {
-        db: {
-          url,
-        },
-      },
-      // Configuración para reducir logs
-      log: [
-        {
-          emit: 'event',
-          level: 'error',
-        },
-        {
-          emit: 'event',
-          level: 'warn',
-        },
-      ],
-    });
-
-    // Opcional: Escuchar eventos de error para logging personalizado
-    this.$on('error' as never, (e: Prisma.LogEvent) => {
-      console.error('Prisma Error:', e);
-    });
+  constructor(private config: ConfigService) {
+    super();
   }
 
   async onModuleInit() {
