@@ -6,13 +6,17 @@ const { PrismaClient } = require('@prisma/client');
 
 // Clase singleton para acceder a Prisma
 const prisma = new PrismaClient({
-  // Las opciones básicas para evitar el error de enableTracing
+  // Configuración básica conforme a la documentación
   __internal: {
-    enableExperimentalTracing: false,
     engine: {
-      enableTracing: false,
+      // Configuración permitida para el motor
     },
+    debug: false
   },
+  log: [
+    { level: 'error', emit: 'stdout' },
+    { level: 'warn', emit: 'stdout' }
+  ]
 });
 
 @Injectable()
