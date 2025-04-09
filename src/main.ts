@@ -1,44 +1,32 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, Logger } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  // Configuración para el mensaje personalizado
-  const customLogger = new Logger('SERVER');
+  const app = await NestFactory.create(AppModule);
 
-  // Crear la aplicación con configuración de logger reducida
-  const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn'], // Solo mostrar errores y advertencias
+  // Prefijo global para todas las rutas de la API
+  app.setGlobalPrefix('api');
+
+  // Configuración de CORS para permitir peticiones desde el frontend
+  app.enableCors({
+    origin: process.env.FRONTEND_URL || 'https://vacacional-frontend.vercel.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
   });
 
-  // Configuración de pipes globales
+  // Configuración de validación global de DTOs
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,
+    forbidNonWhitelisted: true,
   }));
 
-  // Configuración del prefijo global
-  app.setGlobalPrefix('api');
-
-  // Configuración detallada de CORS
-  app.enableCors({
-    origin: true, // Permitir todas las origenes en desarrollo
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    allowedHeaders: 'Content-Type, Accept, Authorization',
-  });
-
-  // Obtener puerto de la variable de entorno o usar 3000 por defecto
+  // Puerto de escucha
   const port = process.env.PORT || 3000;
   await app.listen(port);
 
-  // Mensajes muy destacados para que sean visibles
-  console.log('\n\n');
-  console.log('==========================================================');
-  console.log(`|                                                        |`);
-  console.log(`|  🚀 SERVIDOR INICIADO EN: http://localhost:${port}         |`);
-  console.log(`|                                                        |`);
-  console.log('==========================================================');
-  console.log('\n\n');
+  console.log(`Application running on port ${port}`);
 }
+
 bootstrap();
